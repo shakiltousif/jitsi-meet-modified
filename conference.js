@@ -2179,8 +2179,8 @@ export default {
         ) {
             const getExistingRoomParsed = JSON.parse(getExistingRoom);
 
-            console.log('_onConferenceJoined', getExistingRoomParsed &&
-                getExistingRoomParsed?.jitsiMeetId == jitsiMeetId)
+            // console.log('_onConferenceJoined', getExistingRoomParsed &&
+            //     getExistingRoomParsed?.jitsiMeetId == jitsiMeetId)
 
             if (getExistingRoomParsed?.jitsiMeetId == jitsiMeetId && getExistingRoomParsed?.role == PARTICIPANT_ROLE.MODERATOR) {
                 APP.store.dispatch(maybeSetLobbyChatMessageListener());
