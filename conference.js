@@ -2158,33 +2158,39 @@ export default {
         const conference = APP.store.getState()['features/base/conference'];
         const participants = APP.store.getState()['features/base/participants'];
         const roomId = conference?.room?.toLowerCase();
+        const url = new URL(location.href);
+        const params = new URLSearchParams(url.search.slice(1));
+        const host = params.get('host');
 
-        
+
 
         const getExistingRoom = localStorage.getItem(
             `${roomId}`
         );
         const jitsiMeetId = localStorage.getItem("jitsiMeetId");
 
-        
-        
 
-        if (
+        if (host == '1') {
+            APP.store.dispatch(maybeSetLobbyChatMessageListener());
+            APP.store.dispatch(localParticipantRoleChanged(PARTICIPANT_ROLE.MODERATOR));
+            APP.API.notifyUserRoleChanged(participants?.local?.id, PARTICIPANT_ROLE.MODERATOR);
+        } else if (
             getExistingRoom
         ) {
             const getExistingRoomParsed = JSON.parse(getExistingRoom);
-            
+
             console.log('_onConferenceJoined', getExistingRoomParsed &&
-            getExistingRoomParsed?.jitsiMeetId == jitsiMeetId)
+                getExistingRoomParsed?.jitsiMeetId == jitsiMeetId)
 
             if (getExistingRoomParsed?.jitsiMeetId == jitsiMeetId && getExistingRoomParsed?.role == PARTICIPANT_ROLE.MODERATOR) {
                 APP.store.dispatch(maybeSetLobbyChatMessageListener());
                 APP.store.dispatch(localParticipantRoleChanged(PARTICIPANT_ROLE.MODERATOR));
                 APP.API.notifyUserRoleChanged(participants?.local?.id, PARTICIPANT_ROLE.MODERATOR);
-                
             }
 
         }
+
+
 
 
 
@@ -2525,6 +2531,8 @@ export default {
         if (!interfaceConfig.SHOW_PROMOTIONAL_CLOSE_PAGE) {
             APP.API.notifyReadyToClose();
         }
+
+        window.parent.postMessage('leave_meeting', '*');
         APP.store.dispatch(maybeRedirectToWelcomePage(feedbackResult));
     },
 
