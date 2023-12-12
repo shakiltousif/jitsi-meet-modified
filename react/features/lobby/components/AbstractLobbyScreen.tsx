@@ -194,7 +194,7 @@ export default class AbstractLobbyScreen<P extends IProps = IProps> extends Pure
     _getScreenTitleKey() {
         const { screenState } = this.state;
         const passwordPrompt = screenState === SCREEN_STATES.PASSWORD;
-
+        
         return !passwordPrompt && this.props._knocking
             ? this.props._isLobbyChatActive ? 'lobby.lobbyChatStartedTitle' : 'lobby.joiningTitle'
             : passwordPrompt ? 'lobby.enterPasswordTitle' : 'lobby.joinTitle';
