@@ -267,7 +267,8 @@ const Chat = ({
                     id: CHAT_TABS.CHAT,
                     controlsId: `${CHAT_TABS.CHAT}-panel`,
                     label: t('chat.tabs.chat')
-                }, {
+                }
+                , {
                     accessibilityLabel: t('chat.tabs.polls'),
                     countBadge: !_isPollsTabFocused && _nbUnreadPolls > 0 ? _nbUnreadPolls : undefined,
                     id: CHAT_TABS.POLLS,

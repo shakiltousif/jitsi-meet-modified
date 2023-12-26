@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/padding-line-between-statements */
+/* eslint-disable eqeqeq */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable linebreak-style */
 /* eslint-disable react/jsx-no-bind */
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -394,10 +398,9 @@ const Prejoin = ({
     const url = new URL(location.href);
     const params = new URLSearchParams(url.search.slice(1));
     const username = params.get("username");
-    if (username != "") {
-        setName(username);
+    if (username) {
+        setName(`${username}`);
     }
-    console.log(username, "username");
     return (
         <PreMeetingScreen
             showDeviceStatus={deviceStatusVisible}
@@ -426,7 +429,7 @@ const Prejoin = ({
                         }
                         placeholder={t("dialog.enterDisplayName")}
                         readOnly={readOnlyName}
-                        value={name}
+                        value={name != 'null' && name ? name : ""}
                     />
                 ) : username ? (
                     <div className={classes.avatarContainer}>
